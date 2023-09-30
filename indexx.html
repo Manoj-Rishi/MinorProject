@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Mental Health Predictor</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/static/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/static/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+    <style>
+      /* Style for checkboxes to look like toggle switches */
+      [type="checkbox"] {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+        margin: 0 10px;
+        background-color: #ccc;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+
+      [type="checkbox"]:before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        background-color: #fff;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      [type="checkbox"]:checked:before {
+        left: 22px;
+      }
+    </style>
+  </head>
+
+   <body>
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">Mental Health Prediction</h1>
+          <div class="row center">
+            <h5 class="header col s12 light">Predict the probability whether a person requires Mental Treatment
+              <br>
+            </h5>
+          </div>
+        <div class="row center">
+          <h6 class="header col s12 light">Instructions to fill form<br>Enter age in years<br>select one of the options for remaining questions</h6>
+        </div>
+
+        <div class="row">
+          <form action='/predict' method="post" class="col s12">
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="first_name"><b>Age</b></label>
+                <br>
+                <input placeholder="Age" name="Age" id="first_name" type="text" class="validate">
+              </div>
+              <div class="input-field col s4">
+                <label><b>Gender</b></label>
+                <br>
+                <p>
+                  <label>
+                    <input name="Gender" type="checkbox" value="0"/>
+                    <span>Female</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="Gender" type="checkbox" value="1"/>
+                    <span>Male</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="Gender" type="checkbox" value="2"/>
+                    <span>Trans</span>
+                  </label>
+                </p>
+              </div>
+              <div class="input-field col s4">
+                <label><b>Any one in your family history has mental illness?</b></label>
+                <br>
+                <br>
+                <p>
+                  <label>
+                    <input name="Family_history" type="checkbox" value="0"/>
+                    <span>No</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="Family_history" type="checkbox" value="1"/>
+                    <span>Yes</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s4">
+                <label><b>Are there any benefits provided by your company?</b></label>
+                <br>
+                <br>
+                <p>
+                  <label>
+                    <input name="Benefits" type="checkbox" value="0"/>
+                    <span>Don't know</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="Benefits" type="checkbox" value="1"/>
+                    <span>No</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="Benefits" type="checkbox" value="2"/>
+                    <span>Yes</span>
+                  </label>
+                </p>
+              </div>
+              <div class="input-field col s4">
+                <label><b>Does your company provide any Care Options?</b></label>
+                <br>
+                <p>
+                  <label>
+                    <input name="care_options" type="checkbox" value="0"/>
+                    <span>No</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="care_options" type="checkbox" value="1"/>
+                    <span>Not sure</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="care_options" type="checkbox" value="2"/>
+                    <span>Yes</span>
+                  </label>
+                </p>
+              </div>
+              <div class="input-field col s4">
+                <label><b>Anonymity</b></label>
+                <br>
+                <p>
+                  <label>
+                    <input name="anonymity" type="checkbox" value="0"/>
+                    <span>Don't know</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="anonymity" type="checkbox" value="1"/>
+                    <span>No</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="anonymity" type="checkbox" value="2"/>
+                    <span>Yes</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s4">
+                <label><b>At what level does your company grant leave</b></label>
+                <br>
+                <p>
+                  <label>
+                    <input name="leave" type="checkbox" value="0"/>
+                    <span>Don't know</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="leave" type="checkbox" value="1"/>
+                    <span>somewhat difficult</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="leave" type="checkbox" value="2"/>
+                    <span>somewhat easy</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="leave" type="checkbox" value="3"/>
+                    <span>very difficult</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="leave" type="checkbox" value="4"/>
+                    <span>very easy</span>
+                  </label>
+                </p>
+              </div>
+              <div class="input-field col s4">
+                <label><b>How much does Work interfere with your personal life?</b></label>
+                <br>
+                <br>
+                <p>
+                  <label>
+                    <input name="work_interfere" type="checkbox" value="0"/>
+                    <span>Don't know</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="work_interfere" type="checkbox" value="1"/>
+                    <span>Never</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="work_interfere" type="checkbox" value="2"/>
+                    <span>Often</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="work_interfere" type="checkbox" value="3"/>
+                    <span>Rarely</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="work_interfere" type="checkbox" value="4"/>
+                    <span>Sometimes</span>
+                  </label>
+                </p>
+              </div>
+<!--               <div class="input-field col s4">
+                <label><b>Remote Work</b></label>
+                <br>
+                <p>
+                  <label>
+                    <input name="remote_work" type="checkbox" value="0"/>
+                    <span>No</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="remote_work" type="checkbox" value="1"/>
+                    <span>Yes</span>
+                  </label>
+                </p>
+              </div> -->
+       
+
+
+
+<!-- 
+              <div class="row">
+                <div class="input-field col s4">
+                  <label><b>Tech Company</b></label>
+                  <br>
+                  <p>
+                    <label>
+                      <input name="tech_company" type="checkbox" value="0"/>
+                      <span>No</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="tech_company" type="checkbox" value="1"/>
+                      <span>Yes</span>
+                    </label>
+                  </p>
+                </div>
+                <div class="input-field col s4">
+                  <label><b>Seek Help</b></label>
+                  <br>
+                  <p>
+                    <label>
+                      <input name="seek_help" type="checkbox" value="0"/>
+                      <span>Don't know</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="seek_help" type="checkbox" value="1"/>
+                      <span>No</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="seek_help" type="checkbox" value="2"/>
+                      <span>Yes</span>
+                    </label>
+                  </p>
+                </div>
+                <div class="input-field col s4">
+                  <label><b>Physical health consequence</b></label>
+                  <br>
+                  <p>
+                    <label>
+                      <input name="phys_health_consequence" type="checkbox" value="0"/>
+                      <span>Maybe</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="phys_health_consequence" type="checkbox" value="1"/>
+                      <span>No</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="phys_health_consequence" type="checkbox" value="2"/>
+                      <span>Yes</span>
+                    </label>
+                  </p>
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <div class="input-field col s4">
+                  <label><b>coworkers</b></label>
+                  <br>
+                  <p>
+                    <label>
+                      <input name="coworkers" type="checkbox" value="0"/>
+                      <span>No</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="coworkers" type="checkbox" value="1"/>
+                      <span>Some of them</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="coworkers" type="checkbox" value="2"/>
+                      <span>Yes</span>
+                    </label>
+                  </p>
+                </div>
+                <div class="input-field col s4">
+                  <label><b>supervisor</b></label>
+                  <br>
+                  <p>
+                    <label>
+                      <input name="supervisor" type="checkbox" value="0"/>
+                      <span>No</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="supervisor" type="checkbox" value="1"/>
+                      <span>Some of them</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="supervisor" type="checkbox" value="2"/>
+                      <span>Yes</span>
+                    </label>
+                  </p>
+                </div>
+                <div class="input-field col s4">
+                  <label><b>mental health interview</b></label>
+                  <br>
+                  <p>
+                    <label>
+                      <input name="mental_health_interview" type="checkbox" value="0"/>
+                      <span>Maybe</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="mental_health_interview" type="checkbox" value="1"/>
+                      <span>No</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="mental_health_interview" type="checkbox" value="2"/>
+                      <span>Yes</span>
+                    </label>
+                  </p>
+                </div>
+              </div>
+
+
+
+
+              <div class="row">
+                <div class="input-field col s4">
+                  <label><b>phys health interview</b></label>
+                  <br>
+                  <p>
+                    <label>
+                      <input name="phys_health_interview" type="checkbox" value="0"/>
+                      <span>Maybe</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="phys_health_interview" type="checkbox" value="1"/>
+                      <span>No</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="phys_health_interview" type="checkbox" value="2"/>
+                      <span>Yes</span>
+                    </label>
+                  </p>
+                </div>
+              </div> -->
+
+
+            </div>
+            
+            <div class="row center">
+              <button type="submit" class="btn-large waves-effect waves-light orange">Predict Probability</button>
+            </div>
+          </form>
+        </div>
+        <br>
+        <div class="row center">
+          <h6 class="waves-effect waves-light orange">{{pred}}<br></h6>
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </div>
+</div>
+</body>
+</html>
